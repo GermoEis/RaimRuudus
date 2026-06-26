@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   clearEditableContent,
   defaultContent,
@@ -7,6 +7,7 @@ import {
 } from '../data/contentStore.js';
 import logo from '../assets/raim-ruudus-logo-transparent.png';
 
+// TODO: Replace this client-side gate with server-side or hosting-level authentication before public use.
 const adminPassword = 'raimruudus';
 
 const tabs = [
@@ -100,7 +101,7 @@ function AdminLogin({ onLogin }) {
           Logi sisse
         </button>
         {error && <p className="field-error">{error}</p>}
-        <p className="form-note">Arendusparool: raimruudus. Päris avalikus veebis tuleb see asendada serveripoolse ligipääsuga.</p>
+        <p className="form-note">Admin on praegu arendusrežiimis. Päris avalikus veebis tuleb ligipääs kaitsta serveripoolse autentimisega.</p>
       </form>
     </main>
   );
@@ -375,6 +376,21 @@ function FaqEditor({ content, setContent }) {
 }
 
 function AdminPanel() {
+  useEffect(() => {
+    const previousTitle = document.title;
+    const robotsMeta = document.querySelector('meta[name="robots"]');
+    const previousRobots = robotsMeta?.getAttribute('content');
+
+    document.title = 'Admin | Räim Ruudus';
+    robotsMeta?.setAttribute('content', 'noindex, nofollow');
+
+    return () => {
+      document.title = previousTitle;
+      if (robotsMeta && previousRobots) {
+        robotsMeta.setAttribute('content', previousRobots);
+      }
+    };
+  }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(() => window.sessionStorage.getItem('raimRuudusAdminSession') === 'true');
   const [activeTab, setActiveTab] = useState('overview');
   const [content, setContent] = useState(() => loadEditableContent());

@@ -62,6 +62,7 @@ function openMailClient({ subject, body }) {
 }
 
 export async function submitQuizRegistration(values, quiz) {
+  const { siteConfig } = loadEditableContent();
   const payload = {
     ...values,
     eventTitle: quiz.title,
@@ -95,6 +96,7 @@ export async function submitQuizRegistration(values, quiz) {
 }
 
 export async function submitContactMessage(values) {
+  const { siteConfig } = loadEditableContent();
   const sanitizedPayload = sanitizePayload(values);
   const entry = saveToMockStorage('contact', sanitizedPayload);
 

@@ -6,7 +6,7 @@ import Exhibition from './components/Exhibition.jsx';
 import QuizRegistrationForm from './components/QuizRegistrationForm.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import AdminPanel from './components/AdminPanel.jsx';
-import { DesignNav, IslandMapDesign, PosterDesign } from './components/AlternateDesigns.jsx';
+import { IslandMapDesign, PosterDesign } from './components/AlternateDesigns.jsx';
 import Footer from './components/Footer.jsx';
 import { adminPreparationNotes, editableContentAreas } from './data/adminContent.js';
 import { loadEditableContent } from './data/contentStore.js';
@@ -24,9 +24,6 @@ function MainDesign({ content }) {
   return (
     <>
       <Header siteConfig={siteConfig} />
-      <div className="main-design-switch" aria-label="Disainivariandi valik">
-        <DesignNav />
-      </div>
       <main>
         <Hero />
 
@@ -271,9 +268,10 @@ function MainDesign({ content }) {
 function App() {
   const params = new URLSearchParams(window.location.search);
   const design = params.get('design');
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
   const content = loadEditableContent();
 
-  if (params.has('admin') || design === 'admin') {
+  if (path === '/admin') {
     return <AdminPanel />;
   }
 

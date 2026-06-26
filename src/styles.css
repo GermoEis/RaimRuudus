@@ -1305,7 +1305,8 @@ textarea {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
   color: #172322;
-  background: #f5efe0;
+  background:
+    linear-gradient(112deg, rgba(248, 251, 248, 0.98) 0%, rgba(230, 240, 239, 0.94) 46%, rgba(255, 242, 220, 0.98) 100%);
 }
 
 .map-sidebar {
@@ -1317,7 +1318,7 @@ textarea {
   gap: 24px;
   padding: 26px;
   border-right: 1px solid rgba(23, 35, 34, 0.14);
-  background: #fffaf0;
+  background: transparent;
 }
 
 .map-sidebar p {
@@ -1357,9 +1358,6 @@ textarea {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 38px;
   align-items: center;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(11, 100, 114, 0.16), transparent 28rem),
-    #f5efe0;
 }
 
 .map-fish {
@@ -1377,9 +1375,9 @@ textarea {
 .map-route {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  padding: 1px;
-  background: rgba(23, 35, 34, 0.16);
+  gap: 14px;
+  padding: clamp(36px, 6vw, 78px);
+  background: transparent;
 }
 
 .map-route article {
@@ -1388,7 +1386,9 @@ textarea {
   align-content: space-between;
   gap: 20px;
   padding: 28px;
-  background: #fffaf0;
+  border: 1px solid rgba(23, 35, 34, 0.12);
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(10px);
 }
 
 .map-route span {
@@ -1461,7 +1461,8 @@ textarea {
 .map-event-board article {
   padding: 20px;
   border-left: 4px solid #0b6472;
-  background: #fffaf0;
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(10px);
 }
 
 .map-event-board time {
@@ -1473,12 +1474,12 @@ textarea {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  background: #c7a96b;
+  background: linear-gradient(115deg, rgba(11, 100, 114, 0.14), rgba(199, 169, 107, 0.22));
 }
 
 .map-practical details {
   padding: 18px;
-  background: rgba(255, 250, 240, 0.78);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .map-practical summary {
@@ -1487,7 +1488,7 @@ textarea {
 }
 
 .map-contact {
-  background: #fffaf0;
+  background: transparent;
 }
 
 .map-contact .form-card {
@@ -1727,6 +1728,35 @@ textarea {
 }
 
 @media (max-width: 1040px) {
+  .map-design {
+    grid-template-columns: 1fr;
+  }
+
+  .map-sidebar {
+    position: static;
+    height: auto;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
+  .map-sidebar nav:not(.design-nav) {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .map-hero,
+  .map-event-board,
+  .poster-menu,
+  .poster-exhibition,
+  .poster-forms,
+  .poster-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .map-route,
+  .map-drinks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .site-header,
   .site-footer,
   .admin-note,
@@ -1807,6 +1837,26 @@ textarea {
 }
 
 @media (max-width: 680px) {
+  .map-sidebar {
+    padding: 18px;
+  }
+
+  .map-sidebar nav:not(.design-nav),
+  .map-route,
+  .map-drinks,
+  .map-practical,
+  .menu-preview-pages {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-preview-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .menu-preview-heading .button {
+    width: 100%;
+  }
   .site-header {
     position: static;
   }
@@ -1891,4 +1941,93 @@ textarea {
   .exhibition-placeholder {
     min-height: 240px;
   }
+}
+
+.bar-board-header > div {
+  display: grid;
+  gap: 6px;
+}
+
+.menu-pdf-link {
+  flex: 0 0 auto;
+}
+
+.poster-menu-link,
+.map-menu-pdf {
+  display: inline-flex;
+  justify-content: center;
+  width: max-content;
+  margin-top: 24px;
+  padding: 12px 15px;
+  border-radius: 999px;
+  color: #fff;
+  background: #101614;
+  font-weight: 900;
+}
+
+.map-menu-pdf {
+  color: #172322;
+  background: #f1e6cf;
+}
+
+.menu-preview {
+  display: grid;
+  gap: 18px;
+  margin: 24px 0 28px;
+  padding: 18px;
+  border: 1px solid rgba(241, 230, 207, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.menu-preview-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.menu-preview-heading h3,
+.menu-preview-heading p {
+  margin: 0;
+}
+
+.menu-preview-heading .eyebrow {
+  color: var(--chalk);
+  margin-bottom: 6px;
+}
+
+.menu-preview-heading h3 {
+  color: var(--white);
+  font-size: clamp(1.25rem, 2.4vw, 1.8rem);
+}
+
+.menu-preview-pages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.menu-preview-pages a {
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.22);
+}
+
+.menu-preview-pages img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.menu-preview-compact {
+  margin-top: 0;
+}
+
+.poster-menu .menu-preview,
+.map-bar .menu-preview {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
 }

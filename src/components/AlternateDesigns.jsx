@@ -1,4 +1,5 @@
 import ContactForm from './ContactForm.jsx';
+import MenuPreview from './MenuPreview.jsx';
 import QuizRegistrationForm from './QuizRegistrationForm.jsx';
 import { drinkCategories } from '../data/drinks.js';
 import { nextQuiz, upcomingEvents } from '../data/events.js';
@@ -7,25 +8,7 @@ import { siteConfig } from '../data/siteConfig.js';
 import logo from '../assets/raim-ruudus-logo-transparent.png';
 import fish from '../assets/raim-ruudus-fish.png';
 import { defaultContent } from '../data/contentStore.js';
-
-const designLinks = [
-  { label: 'Kaart (põhi)', href: '/' },
-  { label: 'Plakat', href: '/?design=poster' },
-  { label: 'Klassikaline', href: '/?design=classic' },
-  { label: 'Admin', href: '/?admin=1' },
-];
-
-export function DesignNav({ tone = 'light' }) {
-  return (
-    <nav className={`design-nav design-nav-${tone}`} aria-label="Disainivariandid">
-      {designLinks.map((link) => (
-        <a href={link.href} key={link.href}>
-          {link.label}
-        </a>
-      ))}
-    </nav>
-  );
-}
+import { menuAssets } from '../data/menu.js';
 
 function LogoBlock({ className = '' }) {
   return (
@@ -40,7 +23,6 @@ export function PosterDesign({ content = defaultContent }) {
 
   return (
     <div className="poster-design">
-      <DesignNav tone="dark" />
       <header className="poster-hero" id="top">
         <div className="poster-brand">
           <LogoBlock />
@@ -65,6 +47,9 @@ export function PosterDesign({ content = defaultContent }) {
           </p>
           <div className="poster-actions">
             <a href="#poster-events">Vaata sündmusi</a>
+            <a href={menuAssets.pdf} target="_blank" rel="noreferrer">
+              Ava menüü
+            </a>
             <a href={siteConfig.travel.url} target="_blank" rel="noreferrer">
               Laeva info
             </a>
@@ -75,6 +60,9 @@ export function PosterDesign({ content = defaultContent }) {
           <div className="poster-section-title">
             <span>Baar</span>
             <h2>Joogitahvel</h2>
+            <a className="poster-menu-link" href={menuAssets.pdf} target="_blank" rel="noreferrer">
+              Ava täismenüü PDF
+            </a>
           </div>
           <div className="poster-menu-list">
             {drinkCategories.map((category) => (
@@ -157,7 +145,6 @@ export function IslandMapDesign({ content = defaultContent }) {
           <a href="#map-events">Sündmused</a>
           <a href="#map-contact">Kontakt</a>
         </nav>
-        <DesignNav />
       </aside>
 
       <main className="map-content">
@@ -165,7 +152,7 @@ export function IslandMapDesign({ content = defaultContent }) {
           <img className="map-fish" src={fish} alt="" />
           <div>
             <span>Naissaar / Räim Ruudus</span>
-            <h1>Saarepeatus, mis töötab nagu väike teekond.</h1>
+            <h1>Räim Ruudus: Naissaare baar, menüü ja sündmused.</h1>
             <p>
               Tule laevaga, võta aeg maha, vali midagi baarist, vaata näitust ja pane
               meeskond viktoriiniks kirja.
@@ -199,18 +186,12 @@ export function IslandMapDesign({ content = defaultContent }) {
         <section className="map-bar" id="map-bar">
           <div className="map-heading">
             <span>Baar</span>
-            <h2>Joogid lihtsa nimekirjana, mitte kaardireana.</h2>
+            <h2>Menüü ja hinnakiri</h2>
+            <a className="map-menu-pdf" href={menuAssets.pdf} target="_blank" rel="noreferrer">
+              Ava täismenüü PDF
+            </a>
           </div>
-          <div className="map-drinks">
-            {drinkCategories.map((category) => (
-              <article key={category.title}>
-                <h3>{category.title}</h3>
-                <p>{category.tags.join(' · ')}</p>
-                <strong>{category.price}</strong>
-              </article>
-            ))}
-          </div>
-        </section>
+          <MenuPreview assets={menuAssets} /></section>
 
         <section className="map-events" id="map-events">
           <div className="map-heading">
