@@ -1,9 +1,21 @@
-import { siteConfig } from '../data/siteConfig.js';
+import { loadEditableContent } from '../data/contentStore.js';
 
 const storageKeys = {
   quiz: 'raimRuudusQuizRegistrations',
   contact: 'raimRuudusContactMessages',
 };
+
+function sanitizeText(value) {
+  return String(value || '')
+    .replace(/[<>]/g, '')
+    .trim();
+}
+
+function sanitizePayload(payload) {
+  return Object.fromEntries(
+    Object.entries(payload).map(([key, value]) => [key, sanitizeText(value)]),
+  );
+}
 
 function saveToMockStorage(type, payload) {
   const key = storageKeys[type];
@@ -17,7 +29,31 @@ function saveToMockStorage(type, payload) {
   return entry;
 }
 
+function encodeFormData(data) {
+  return new URLSearchParams(data).toString();
+}
+
+async function submitNetlifyForm(formName, payload) {
+  const sanitizedPayload = sanitizePayload(payload);
+
+  if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+    throw new Error('Netlify Forms works after deployment.');
+  }
+
+  await fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: encodeFormData({
+      'form-name': formName,
+      ...sanitizedPayload,
+    }),
+  });
+
+  return sanitizedPayload;
+}
+
 function openMailClient({ subject, body }) {
+  const { siteConfig } = loadEditableContent();
   const mailtoUrl = `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(
     subject,
   )}&body=${encodeURIComponent(body)}`;
@@ -25,43 +61,58 @@ function openMailClient({ subject, body }) {
   window.location.href = mailtoUrl;
 }
 
-export function submitQuizRegistration(values, quiz) {
-  const entry = saveToMockStorage('quiz', values);
+export async function submitQuizRegistration(values, quiz) {
+  const payload = {
+    ...values,
+    eventTitle: quiz.title,
+    eventDate: quiz.date,
+  };
+  const sanitizedPayload = sanitizePayload(payload);
+  const entry = saveToMockStorage('quiz', sanitizedPayload);
 
-  openMailClient({
-    subject: `Viktoriini registreering: ${values.teamName}`,
-    body: [
-      `Viktoriin: ${quiz.title}`,
-      `Kuupäev: ${quiz.date}`,
-      '',
-      `Meeskonna nimi: ${values.teamName}`,
-      `Kontaktisik: ${values.contactName}`,
-      `E-post: ${values.email}`,
-      `Telefon: ${values.phone}`,
-      `Osalejate arv: ${values.participants}`,
-      `Lisainfo: ${values.notes || '-'}`,
-      '',
-      `Mock-salvestuse aeg: ${entry.submittedAt}`,
-    ].join('\n'),
-  });
+  try {
+    await submitNetlifyForm(siteConfig.forms.quizFormName, sanitizedPayload);
+  } catch {
+    openMailClient({
+      subject: `Viktoriini registreering: ${sanitizedPayload.teamName}`,
+      body: [
+        `Viktoriin: ${quiz.title}`,
+        `Kuupäev: ${quiz.date}`,
+        '',
+        `Meeskonna nimi: ${sanitizedPayload.teamName}`,
+        `Kontaktisik: ${sanitizedPayload.contactName}`,
+        `E-post: ${sanitizedPayload.email}`,
+        `Telefon: ${sanitizedPayload.phone}`,
+        `Osalejate arv: ${sanitizedPayload.participants}`,
+        `Lisainfo: ${sanitizedPayload.notes || '-'}`,
+        '',
+        `Kohalik salvestuse aeg: ${entry.submittedAt}`,
+      ].join('\n'),
+    });
+  }
 
   return entry;
 }
 
-export function submitContactMessage(values) {
-  const entry = saveToMockStorage('contact', values);
+export async function submitContactMessage(values) {
+  const sanitizedPayload = sanitizePayload(values);
+  const entry = saveToMockStorage('contact', sanitizedPayload);
 
-  openMailClient({
-    subject: `Kontaktivorm: ${values.name}`,
-    body: [
-      `Nimi: ${values.name}`,
-      `E-post: ${values.email}`,
-      '',
-      values.message,
-      '',
-      `Mock-salvestuse aeg: ${entry.submittedAt}`,
-    ].join('\n'),
-  });
+  try {
+    await submitNetlifyForm(siteConfig.forms.contactFormName, sanitizedPayload);
+  } catch {
+    openMailClient({
+      subject: `Kontaktivorm: ${sanitizedPayload.name}`,
+      body: [
+        `Nimi: ${sanitizedPayload.name}`,
+        `E-post: ${sanitizedPayload.email}`,
+        '',
+        sanitizedPayload.message,
+        '',
+        `Kohalik salvestuse aeg: ${entry.submittedAt}`,
+      ].join('\n'),
+    });
+  }
 
   return entry;
 }

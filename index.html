@@ -5,11 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Räim Ruudus on Naissaarel asuv looduslokaal, kus kohtuvad meri, joogid, näitus ja mõnus saareatmosfäär."
+      content="Räim Ruudus on Naissaarel asuv looduslokaal ja baar, kus kohtuvad meri, külmad joogid, sündmused, viktoriinid ja näitus Meri kannab."
     />
-    <title>Räim Ruudus | Looduslokaal Naissaarel</title>
+    <meta
+      name="keywords"
+      content="Räim Ruudus, Naissaar baar, Naissaar kohvik, Naissaar joogid, Naissaar sündmused, Naissaar viktoriin, Naissaar näitus, Meri kannab, Naissaar külastus"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://raimruudus.ee/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="et_EE" />
+    <meta property="og:site_name" content="Räim Ruudus" />
+    <meta property="og:title" content="Räim Ruudus | Naissaar baar, joogid ja sündmused" />
+    <meta
+      property="og:description"
+      content="Naissaare looduslokaal mere ääres. Tule joogile, sündmusele, viktoriinile või näitusele Meri kannab."
+    />
+    <meta property="og:url" content="https://raimruudus.ee/" />
+    <meta property="og:image" content="https://raimruudus.ee/og-image.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Räim Ruudus | Naissaar baar ja sündmused" />
+    <meta
+      name="twitter:description"
+      content="Väike Naissaare looduslokaal, kus saab võtta aja maha, nautida meretuult, külma jooki ja saare rahulikku olemist."
+    />
+    <meta name="twitter:image" content="https://raimruudus.ee/og-image.jpg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BarOrPub",
+        "name": "Räim Ruudus",
+        "description": "Naissaarel asuv looduslokaal, baar, sündmuste koht ja näituse Meri kannab külastuspaik.",
+        "url": "https://raimruudus.ee/",
+        "image": "https://raimruudus.ee/og-image.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Naissaar",
+          "addressCountry": "EE"
+        },
+        "servesCuisine": "Joogid",
+        "sameAs": [
+          "https://www.facebook.com/raimruudus/",
+          "https://www.instagram.com/raimruudus/"
+        ]
+      }
+    </script>
+
+    <title>Räim Ruudus | Naissaar baar, joogid ja sündmused</title>
   </head>
   <body>
+    <form name="quiz-registration" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="text" name="teamName" />
+      <input type="text" name="contactName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="number" name="participants" />
+      <textarea name="notes"></textarea>
+      <input type="text" name="eventTitle" />
+      <input type="text" name="bot-field" />
+    </form>
+    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

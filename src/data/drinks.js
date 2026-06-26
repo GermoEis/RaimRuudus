@@ -3,14 +3,14 @@ export const drinkCategories = [
     title: 'Õlled',
     price: 'alates 4 €',
     tags: ['külm', 'saareõhtu'],
-    description: 'Kohalikud ja kergelt suvised valikud, mis sobivad saarepäeva lõpetuseks.',
+    description: 'Kohalikud ja suvised valikud, mis sobivad saarepäeva lõpetuseks.',
     items: ['Laagerõlu', 'IPA / pale ale', 'Hooajaline valik'],
   },
   {
     title: 'Siidrid',
     price: 'alates 4 €',
     tags: ['värskendav', 'suveks'],
-    description: 'Kuivad ja poolmagusad siidrid, hiljem lisatava täpse valikuga.',
+    description: 'Kuivad ja poolmagusad siidrid kiireks peatuseks või pikemaks istumiseks.',
     items: ['Õunasiider', 'Pirnisiider', 'Hooajaline siider'],
   },
   {
@@ -31,7 +31,7 @@ export const drinkCategories = [
     title: 'Alkoholivabad joogid',
     price: 'alates 2 €',
     tags: ['perele', 'matkajale'],
-    description: 'Jahutavad joogid matkajale, perele ja kiireks peatuseks.',
+    description: 'Jahutavad joogid matkajale, perele ja kõigile, kes võtavad rahulikult.',
     items: ['Limonaadid', 'Mahlad', 'Vesi ja mineraalvesi'],
   },
 ];

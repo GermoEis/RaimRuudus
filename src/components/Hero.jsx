@@ -3,26 +3,27 @@ import logo from '../assets/raim-ruudus-logo-transparent.png';
 function Hero() {
   return (
     <section className="hero" id="top">
-      <div className="hero-overlay">
-        <p className="eyebrow">Naissaar · meri · mõnus atmosfäär</p>
+      <div className="hero-overlay" aria-hidden="true" />
+      <div className="hero-content">
+        <p className="eyebrow">Naissaar · meri · joogid · sündmused</p>
         <h1>Räim Ruudus</h1>
-        <p className="hero-subtitle">Looduslokaal Naissaarel</p>
+        <p className="hero-subtitle">Naissaare looduslokaal mere ja metsa vahel</p>
         <p className="hero-text">
-          Väike mereäärne baar, kus joogid, Naissaare loodus ja rahulik saareõhtu
-          saavad kokku lihtsas ning sõbralikus õhkkonnas.
+          Väike saarebaar, kus saab võtta aja maha, nautida külma jooki, meretuult,
+          viktoriiniõhtuid ja näitust "Meri kannab".
         </p>
         <div className="hero-actions">
           <a className="button button-primary" href="#viktoriinid">
             Vaata sündmusi
           </a>
-          <a className="button button-secondary" href="#kontakt">
-            Võta ühendust
+          <a className="button button-secondary" href="#kuidas-tulla">
+            Kuidas tulla
           </a>
         </div>
       </div>
-      <aside className="hero-visual" aria-label="Räim Ruudus logo">
+      <aside className="hero-visual" aria-label="Räim Ruudus identiteet">
         <img src={logo} alt="Räim Ruudus logo" />
-        <p>Väike saarebaar, kus meri on alati lähedal.</p>
+        <p>Naissaar. Külm jook. Rahulik olemine.</p>
       </aside>
     </section>
   );

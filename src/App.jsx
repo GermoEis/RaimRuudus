@@ -5,40 +5,28 @@ import DrinksMenu from './components/DrinksMenu.jsx';
 import Exhibition from './components/Exhibition.jsx';
 import QuizRegistrationForm from './components/QuizRegistrationForm.jsx';
 import ContactForm from './components/ContactForm.jsx';
-import { IslandMapDesign, PosterDesign } from './components/AlternateDesigns.jsx';
+import AdminPanel from './components/AdminPanel.jsx';
+import { DesignNav, IslandMapDesign, PosterDesign } from './components/AlternateDesigns.jsx';
 import Footer from './components/Footer.jsx';
-import { nextQuiz, upcomingEvents } from './data/events.js';
-import { faqItems } from './data/faq.js';
-import { siteConfig } from './data/siteConfig.js';
-
-const galleryItems = [
-  'Vaade merele ja sadamale',
-  'Õhtune baariala',
-  'Naissaare loodusrajad',
-  'Leitud mere-esemed',
-];
+import { adminPreparationNotes, editableContentAreas } from './data/adminContent.js';
+import { loadEditableContent } from './data/contentStore.js';
 
 const quickLinks = [
-  { title: 'Baar', text: 'Õlled, siidrid, kokteilid ja karastusjoogid.', href: '#baar' },
-  { title: 'Meri kannab', text: 'Väike näitus mere toodud leidudest.', href: '#meri-kannab' },
-  { title: 'Viktoriinid', text: 'Registreeri oma meeskond saareõhtule.', href: '#viktoriinid' },
-  { title: 'Kontakt', text: 'Küsi infot lahtiolekute ja ürituste kohta.', href: '#kontakt' },
+  { title: 'Laevaga kohale', text: 'Naissaarele saab laevaga. Vaata ajad enne tulekut üle.', href: '#kuidas-tulla' },
+  { title: 'Joogid', text: 'Õlled, siidrid, kokteilid, kangemad ja alkoholivabad joogid.', href: '#baar' },
+  { title: 'Sündmused', text: 'Viktoriinid, kokteiliõhtud ja Meri kannab eriõhtu.', href: '#viktoriinid' },
+  { title: 'Kontakt', text: 'Küsi lahtioleku, grupi või külastuse kohta.', href: '#kontakt' },
 ];
 
-function App() {
-  const design = new URLSearchParams(window.location.search).get('design');
-
-  if (design === 'poster') {
-    return <PosterDesign />;
-  }
-
-  if (design === 'kaart') {
-    return <IslandMapDesign />;
-  }
+function MainDesign({ content }) {
+  const { siteConfig, galleryItems, upcomingEvents, nextQuiz, faqItems, drinkCategories } = content;
 
   return (
     <>
-      <Header />
+      <Header siteConfig={siteConfig} />
+      <div className="main-design-switch" aria-label="Disainivariandi valik">
+        <DesignNav />
+      </div>
       <main>
         <Hero />
 
@@ -46,7 +34,7 @@ function App() {
           id="avaleht"
           eyebrow="Tere tulemast"
           title="Väike paik suure mere ääres"
-          lead="Räim Ruudus on Naissaare looduslokaal, kus saab võtta aja maha, juua midagi head ja olla päriselt saarel. Meie fookus on lihtsal, sõbralikul teenindusel, mõnusal atmosfääril ja mere lähedusel."
+          lead="Räim Ruudus on Naissaare looduslokaal, kus saab võtta aja maha, juua midagi head ja olla päriselt saarel."
         >
           <div className="opening-strip" aria-label="Lahtioleku info">
             <div>
@@ -65,22 +53,17 @@ function App() {
                 karastusjoogid, kokteilid ja kangemad joogid.
               </p>
               <p>
-                Tulevikus lisandub väike näitus "Meri kannab", kus iga ese räägib
-                oma lugu rannast, veest ja ajast.
-              </p>
-              <p className="atmosphere-text">
-                Räim Ruudus on väike Naissaare looduslokaal, kus saab võtta aja maha,
-                nautida meretuult, külma jooki ja saare rahulikku olemist. Meie juures
-                on oodatud nii saarekülalised, pered, sõbrad kui ka neljajalgsed
-                kaaslased.
+                Siin ei pea kiirustama. Tule enne jalutuskäiku, pärast sadamasse jõudmist
+                või õhtul, kui saar hakkab vaiksemaks jääma.
               </p>
             </div>
-            <div className="gallery-grid" aria-label="Galerii kohatäitjad">
-              {galleryItems.map((item, index) => (
-                <div className={`gallery-card gallery-card-${index + 1}`} key={item}>
-                  <span>{item}</span>
-                </div>
-              ))}
+            <div className="atmosphere-panel">
+              <span>Atmosfäär</span>
+              <p>
+                Räim Ruudus on väike Naissaare looduslokaal, kus saab võtta aja maha,
+                nautida meretuult, külma jooki ja saare rahulikku olemist. Oodatud on
+                sõbrad, pered, matkajad ja neljajalgsed kaaslased.
+              </p>
             </div>
           </div>
 
@@ -103,10 +86,10 @@ function App() {
           <div className="travel-card">
             <div>
               <span className="travel-icon">Laev</span>
-              <h3>Laevaga Naissaarele</h3>
+              <h3>Naissaarele saab laevaga</h3>
               <p>
-                Planeeri sõit ette ja kontrolli väljumisaegu enne tulekut. Saarel tasub
-                arvestada rahulikuma liikumise, mereilma ja hooajaliste graafikutega.
+                Vaata väljumisi, pileteid ja praktilist infot Nicesaare lehelt. Saarel
+                tasub arvestada rahulikuma liikumise, mereilma ja hooajaliste graafikutega.
               </p>
             </div>
             <a
@@ -121,26 +104,67 @@ function App() {
         </Section>
 
         <Section
+          id="galerii"
+          eyebrow="Galerii"
+          title="Hetked Naissaare looduslokaalist"
+          lead="Galerii on valmis päris fotode lisamiseks. Adminis saad lisada pildi URL-i, pealkirja ja kirjelduse."
+        >
+          <div className="gallery-grid" aria-label="Räim Ruudus galerii">
+            {galleryItems.map((item, index) => (
+              <article
+                className={`gallery-card gallery-card-${index + 1}`}
+                key={`${item.title}-${index}`}
+                style={item.image ? { backgroundImage: `linear-gradient(180deg, transparent, rgba(8, 59, 69, 0.82)), url(${item.image})` } : undefined}
+              >
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Section>
+
+        <Section
           id="baar"
           eyebrow="Baar / joogid"
           title="Joogid saarepäeva ja õhtuse jutu kõrvale"
-          lead="Menüü on ehitatud nii, et hinnad ja täpne joogivalik saab hiljem kiiresti andmefaili lisada."
+          lead="Baaritahvli stiilis menüü teeb kategooriad kiiresti loetavaks nii telefonis kui ka arvutis."
           tone="sand"
         >
-          <DrinksMenu />
+          <DrinksMenu categories={drinkCategories} />
         </Section>
 
         <Exhibition />
 
         <Section
           id="viktoriinid"
-          eyebrow="Viktoriinid"
-          title="Järgmine viktoriiniõhtu"
-          lead="Pane oma meeskond kirja ja tule Naissaarel teadmisi proovile panema."
+          eyebrow="Sündmused"
+          title="Sündmuste kalender"
+          lead="Viktoriinid, kokteiliõhtud ja Meri kannab eriõhtud annavad põhjuse Naissaarele tulla ka siis, kui päevaplaan alles kujuneb."
         >
+          <div className="events-calendar">
+            {upcomingEvents.map((event, index) => (
+              <article className="calendar-card" key={`${event.machineDate}-${event.title}-${index}`}>
+                <div className="calendar-date">
+                  <time dateTime={event.machineDate}>{event.date}</time>
+                  <span>{event.time}</span>
+                </div>
+                <div className="calendar-content">
+                  <p className="event-label">{event.type}</p>
+                  <h3>{event.title}</h3>
+                  <p>{event.description}</p>
+                  <a className="button button-secondary" href={event.href}>
+                    {event.action}
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
           <div className="quiz-layout">
             <article className="event-card">
-              <span className="event-label">Järgmine sündmus</span>
+              <span className="event-label">Järgmine registreerimisega sündmus</span>
               <h3>{nextQuiz.title}</h3>
               <dl>
                 <div>
@@ -164,38 +188,18 @@ function App() {
             </article>
             <QuizRegistrationForm quiz={nextQuiz} />
           </div>
-
-          <div className="upcoming-block">
-            <div className="compact-heading">
-              <p className="eyebrow">Tulekul</p>
-              <h3>Sündmuste kalender</h3>
-            </div>
-            <div className="upcoming-grid">
-              {upcomingEvents.map((event) => (
-                <article className="upcoming-card" key={`${event.date}-${event.title}`}>
-                  <time>{event.date}</time>
-                  <h4>{event.title}</h4>
-                  <p className="event-time">{event.time}</p>
-                  <p>{event.description}</p>
-                  <a className="button button-secondary" href={event.href}>
-                    {event.action}
-                  </a>
-                </article>
-              ))}
-            </div>
-          </div>
         </Section>
 
         <Section
           id="praktiline-info"
           eyebrow="Praktiline info"
           title="KKK enne saarele tulekut"
-          lead="Siit leiad kiire vastuse kõige tavalisematele küsimustele maksmise, perede, koerte, gruppide, näituse ja kohalesõidu kohta."
+          lead="Kiired vastused maksmise, laste, koerte, gruppide, näituse ja kohalesõidu kohta."
           tone="sand"
         >
           <div className="faq-grid">
-            {faqItems.map((item) => (
-              <article className="faq-card" key={item.question}>
+            {faqItems.map((item, index) => (
+              <article className="faq-card" key={`${item.question}-${index}`}>
                 <h3>{item.question}</h3>
                 <p>{item.answer}</p>
               </article>
@@ -206,7 +210,7 @@ function App() {
         <Section
           id="kontakt"
           eyebrow="Kontakt"
-          title="Küsi lahtioleku, ürituste või külastuse kohta"
+          title="Küsi lahtioleku, ürituse või külastuse kohta"
           lead="Räim Ruudus asub Naissaarel ja on avatud hooajaliselt ning sündmuste ajal."
           tone="green"
         >
@@ -221,6 +225,13 @@ function App() {
                 <h3>Lahtiolekuajad</h3>
                 <p>{siteConfig.openingInfo.title}.</p>
                 <p>{siteConfig.openingInfo.exhibition}</p>
+              </div>
+              <div>
+                <h3>Vormide saatmine</h3>
+                <p>
+                  Valmis lahendus: {siteConfig.forms.provider}. Hiljem saab sama vormi
+                  ühendada ka Resendi või eraldi API-ga.
+                </p>
               </div>
               <div>
                 <h3>Sotsiaalmeedia</h3>
@@ -239,10 +250,42 @@ function App() {
             </aside>
           </div>
         </Section>
+
+        <section className="admin-note" aria-label="Admin paneeli ettevalmistus">
+          <div>
+            <span>Admini valmisolek</span>
+            <p>{adminPreparationNotes.futureAdmin}</p>
+          </div>
+          <ul>
+            {editableContentAreas.map((area) => (
+              <li key={area}>{area}</li>
+            ))}
+          </ul>
+        </section>
       </main>
-      <Footer />
+      <Footer siteConfig={siteConfig} />
     </>
   );
+}
+
+function App() {
+  const params = new URLSearchParams(window.location.search);
+  const design = params.get('design');
+  const content = loadEditableContent();
+
+  if (params.has('admin') || design === 'admin') {
+    return <AdminPanel />;
+  }
+
+  if (design === 'poster') {
+    return <PosterDesign content={content} />;
+  }
+
+  if (design === 'classic' || design === 'tavaline' || design === 'praegune') {
+    return <MainDesign content={content} />;
+  }
+
+  return <IslandMapDesign content={content} />;
 }
 
 export default App;

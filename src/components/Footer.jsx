@@ -1,6 +1,6 @@
-import { siteConfig } from '../data/siteConfig.js';
+import { siteConfig as defaultSiteConfig } from '../data/siteConfig.js';
 
-function Footer() {
+function Footer({ siteConfig = defaultSiteConfig }) {
   return (
     <footer className="site-footer">
       <div>

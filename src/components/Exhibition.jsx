@@ -19,18 +19,18 @@ function Exhibition() {
         <article className="exhibition-card">
           <p>
             "Meri kannab" koondab esemeid, mille meri on Naissaarele toonud või
-            mille rannalt on leitud. Näitus on planeeritud väikese, ligipääsetava
-            lisana lokaali külastusele.
+            mille rannalt on leitud. Näitus on väike ja ligipääsetav lisa lokaali
+            külastusele.
           </p>
           <div className="ticket-box">
             <span>Pilet</span>
             <strong>2 €</strong>
           </div>
           <a className="button button-primary" href="#kontakt">
-            Broneeri külastus
+            Leppige külastus kokku
           </a>
         </article>
-        <div className="exhibition-gallery" aria-label="Näituse galerii kohatäitjad">
+        <div className="exhibition-gallery" aria-label="Näitus Meri kannab galerii">
           {exhibitionItems.map((item) => (
             <div className="exhibition-placeholder" key={item}>
               <span>{item}</span>

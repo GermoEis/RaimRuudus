@@ -1,16 +1,17 @@
-import { siteConfig } from '../data/siteConfig.js';
+import { siteConfig as defaultSiteConfig } from '../data/siteConfig.js';
 import logo from '../assets/raim-ruudus-logo-transparent.png';
 import fish from '../assets/raim-ruudus-fish.png';
 
 const navItems = [
   { label: 'Avaleht', href: '#avaleht', isHome: true },
-  { label: 'Baar', href: '#baar' },
-  { label: 'Meri kannab', href: '#meri-kannab' },
-  { label: 'Viktoriinid', href: '#viktoriinid' },
+  { label: 'Tulemine', href: '#kuidas-tulla' },
+  { label: 'Joogid', href: '#baar' },
+  { label: 'Sündmused', href: '#viktoriinid' },
+  { label: 'KKK', href: '#praktiline-info' },
   { label: 'Kontakt', href: '#kontakt' },
 ];
 
-function Header() {
+function Header({ siteConfig = defaultSiteConfig }) {
   return (
     <header className="site-header">
       <a className="brand" href="#top" aria-label="Räim Ruudus avaleht">

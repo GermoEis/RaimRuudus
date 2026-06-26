@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://raimruudus.ee/sitemap.xml

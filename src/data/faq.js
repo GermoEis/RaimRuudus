@@ -1,27 +1,27 @@
 export const faqItems = [
   {
     question: 'Kas kaardiga saab maksta?',
-    answer: 'Jah, kaardiga saab maksta.',
+    answer: 'Jah.',
   },
   {
     question: 'Kas lapsed on oodatud?',
-    answer: 'Jah, lapsed ja pered on oodatud.',
+    answer: 'Jah.',
   },
   {
     question: 'Kas koeraga võib tulla?',
-    answer: 'Jah, koeraga võib tulla.',
+    answer: 'Jah.',
   },
   {
     question: 'Kas grupp peab ette teatama?',
-    answer: 'Väiksemate gruppide puhul ei ole eraldi ette teatamine vajalik.',
+    answer: 'Ei pea.',
   },
   {
-    question: 'Millal on näitus "Meri kannab" avatud?',
+    question: 'Millal näitus avatud on?',
     answer:
-      'Näitus on avatud baari lahtioleku aegadel. Vajadusel saab külastuse ka telefoni teel kokku leppida.',
+      'Baari lahtioleku aegadel. Vajadusel saab külastuse telefoni teel kokku leppida.',
   },
   {
     question: 'Kuidas Naissaarele saab?',
-    answer: 'Naissaarele saab laevaga. Vaata sõiduinfot ja pileteid lehelt nicesaar.eu.',
+    answer: 'Naissaarele saab laevaga. Laeva info ja piletid: nicesaar.eu.',
   },
 ];

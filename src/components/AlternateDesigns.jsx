@@ -6,14 +6,16 @@ import { faqItems } from '../data/faq.js';
 import { siteConfig } from '../data/siteConfig.js';
 import logo from '../assets/raim-ruudus-logo-transparent.png';
 import fish from '../assets/raim-ruudus-fish.png';
+import { defaultContent } from '../data/contentStore.js';
 
 const designLinks = [
-  { label: 'Praegune', href: '/' },
+  { label: 'Kaart (põhi)', href: '/' },
   { label: 'Plakat', href: '/?design=poster' },
-  { label: 'Kaart', href: '/?design=kaart' },
+  { label: 'Klassikaline', href: '/?design=classic' },
+  { label: 'Admin', href: '/?admin=1' },
 ];
 
-function DesignNav({ tone = 'light' }) {
+export function DesignNav({ tone = 'light' }) {
   return (
     <nav className={`design-nav design-nav-${tone}`} aria-label="Disainivariandid">
       {designLinks.map((link) => (
@@ -33,7 +35,9 @@ function LogoBlock({ className = '' }) {
   );
 }
 
-export function PosterDesign() {
+export function PosterDesign({ content = defaultContent }) {
+  const { siteConfig, nextQuiz, upcomingEvents, drinkCategories } = content;
+
   return (
     <div className="poster-design">
       <DesignNav tone="dark" />
@@ -112,7 +116,9 @@ export function PosterDesign() {
                 <time>{event.date}</time>
                 <div>
                   <h3>{event.title}</h3>
-                  <p>{event.time} · {event.description}</p>
+                  <p>
+                    {event.time} · {event.description}
+                  </p>
                 </div>
                 <a href={event.href}>{event.action}</a>
               </article>
@@ -124,8 +130,8 @@ export function PosterDesign() {
           <div>
             <h2>Registreeri või kirjuta</h2>
             <p>
-              Vormid on samad töötavad vormid: valideerimine, kinnitusteade ja praegune
-              mailto/mock-saatmise lahendus.
+              Vormid kasutavad sama valideerimist, kinnitusteadet, Netlify Forms
+              valmisolekut ja kohalikku varulahendust.
             </p>
           </div>
           <QuizRegistrationForm quiz={nextQuiz} />
@@ -136,7 +142,9 @@ export function PosterDesign() {
   );
 }
 
-export function IslandMapDesign() {
+export function IslandMapDesign({ content = defaultContent }) {
+  const { siteConfig, nextQuiz, upcomingEvents, drinkCategories, faqItems } = content;
+
   return (
     <div className="map-design">
       <aside className="map-sidebar">
@@ -216,7 +224,9 @@ export function IslandMapDesign() {
                 <article key={`${event.date}-${event.title}`}>
                   <time>{event.date}</time>
                   <h3>{event.title}</h3>
-                  <p>{event.time} · {event.description}</p>
+                  <p>
+                    {event.time} · {event.description}
+                  </p>
                 </article>
               ))}
             </div>
