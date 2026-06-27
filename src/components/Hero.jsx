@@ -7,10 +7,10 @@ function Hero() {
       <div className="hero-content">
         <p className="eyebrow">Naissaar · meri · joogid · sündmused</p>
         <h1>Räim Ruudus</h1>
-        <p className="hero-subtitle">Naissaare looduslokaal mere ja metsa vahel</p>
+        <p className="hero-subtitle">Väike baar suure mere ääres</p>
         <p className="hero-text">
           Väike saarebaar, kus saab võtta aja maha, nautida külma jooki, meretuult,
-          viktoriiniõhtuid ja näitust "Meri kannab".
+          viktoriiniõhtuid ja näitust "Meri tõi".
         </p>
         <div className="hero-actions">
           <a className="button button-primary" href="#viktoriinid">

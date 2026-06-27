@@ -14,7 +14,7 @@ import { loadEditableContent } from './data/contentStore.js';
 const quickLinks = [
   { title: 'Laevaga kohale', text: 'Naissaarele saab laevaga. Vaata ajad enne tulekut üle.', href: '#kuidas-tulla' },
   { title: 'Joogid', text: 'Õlled, siidrid, kokteilid, kangemad ja alkoholivabad joogid.', href: '#baar' },
-  { title: 'Sündmused', text: 'Viktoriinid, kokteiliõhtud ja Meri kannab eriõhtu.', href: '#viktoriinid' },
+  { title: 'Sündmused', text: 'Viktoriinid, kokteiliõhtud ja Meri tõi eriõhtu.', href: '#viktoriinid' },
   { title: 'Kontakt', text: 'Küsi lahtioleku, grupi või külastuse kohta.', href: '#kontakt' },
 ];
 
@@ -31,7 +31,7 @@ function MainDesign({ content }) {
           id="avaleht"
           eyebrow="Tere tulemast"
           title="Väike paik suure mere ääres"
-          lead="Räim Ruudus on Naissaare looduslokaal, kus saab võtta aja maha, juua midagi head ja olla päriselt saarel."
+          lead="Räim Ruudus on väike baar suure mere ääres, kus saab võtta aja maha, juua midagi head ja olla päriselt saarel."
         >
           <div className="opening-strip" aria-label="Lahtioleku info">
             <div>
@@ -57,7 +57,7 @@ function MainDesign({ content }) {
             <div className="atmosphere-panel">
               <span>Atmosfäär</span>
               <p>
-                Räim Ruudus on väike Naissaare looduslokaal, kus saab võtta aja maha,
+                Räim Ruudus on väike baar suure mere ääres, kus saab võtta aja maha,
                 nautida meretuult, külma jooki ja saare rahulikku olemist. Oodatud on
                 sõbrad, pered, matkajad ja neljajalgsed kaaslased.
               </p>
@@ -103,7 +103,7 @@ function MainDesign({ content }) {
         <Section
           id="galerii"
           eyebrow="Galerii"
-          title="Hetked Naissaare looduslokaalist"
+          title="Hetked väikesest baarist suure mere ääres"
           lead="Galerii on valmis päris fotode lisamiseks. Adminis saad lisada pildi URL-i, pealkirja ja kirjelduse."
         >
           <div className="gallery-grid" aria-label="Räim Ruudus galerii">
@@ -138,7 +138,7 @@ function MainDesign({ content }) {
           id="viktoriinid"
           eyebrow="Sündmused"
           title="Sündmuste kalender"
-          lead="Viktoriinid, kokteiliõhtud ja Meri kannab eriõhtud annavad põhjuse Naissaarele tulla ka siis, kui päevaplaan alles kujuneb."
+          lead="Viktoriinid, kokteiliõhtud ja Meri tõi eriõhtud annavad põhjuse Naissaarele tulla ka siis, kui päevaplaan alles kujuneb."
         >
           <div className="events-calendar">
             {upcomingEvents.map((event, index) => (

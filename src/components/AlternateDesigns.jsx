@@ -1,4 +1,5 @@
 import ContactForm from './ContactForm.jsx';
+import Footer from './Footer.jsx';
 import MenuPreview from './MenuPreview.jsx';
 import QuizRegistrationForm from './QuizRegistrationForm.jsx';
 import { drinkCategories } from '../data/drinks.js';
@@ -29,7 +30,7 @@ export function PosterDesign({ content = defaultContent }) {
           <p>Naissaar · baar · näitus · viktoriinid</p>
         </div>
         <div className="poster-title">
-          <span>Looduslokaal Naissaarel</span>
+          <span>Väike baar suure mere ääres</span>
           <h1>Väike baar suure mere ääres.</h1>
         </div>
         <aside className="poster-info-card">
@@ -79,7 +80,7 @@ export function PosterDesign({ content = defaultContent }) {
 
         <section className="poster-exhibition">
           <div>
-            <span>Meri kannab</span>
+            <span>Meri tõi</span>
             <h2>Leitud esemed ja nende lood.</h2>
             <p>
               Väike näitus mere poolt Naissaarele kantud esemetest. Pilet 2 €, külastus
@@ -137,7 +138,7 @@ export function IslandMapDesign({ content = defaultContent }) {
     <div className="map-design">
       <aside className="map-sidebar">
         <LogoBlock />
-        <p>Looduslokaal Naissaarel</p>
+        <p>Väike baar suure mere ääres</p>
         <nav aria-label="Kaardivaate navigatsioon">
           <a href="#map-start">Algus</a>
           <a href="#map-route">Teekond</a>
@@ -177,8 +178,8 @@ export function IslandMapDesign({ content = defaultContent }) {
           </article>
           <article>
             <span>03</span>
-            <h2>Meri kannab</h2>
-            <p>Näitus mere poolt Naissaarele kantud esemetest. Pilet 2 €.</p>
+            <h2>Meri tõi</h2>
+            <p>Näitus mere poolt Naissaarele kantud esemetest. Näitus on tasuta.</p>
             <a href="#map-contact">Küsi külastuse kohta</a>
           </article>
         </section>
@@ -239,6 +240,7 @@ export function IslandMapDesign({ content = defaultContent }) {
             <span>Naissaar</span>
           </footer>
         </section>
+        <Footer siteConfig={siteConfig} contactHref="#map-contact" />
       </main>
     </div>
   );

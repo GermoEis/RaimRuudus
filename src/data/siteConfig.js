@@ -1,12 +1,12 @@
 export const siteConfig = {
   name: 'Räim Ruudus',
-  tagline: 'Naissaare looduslokaal',
+  tagline: 'Väike baar suure mere ääres',
   contactEmail: 'info@raimruudus.ee',
   phone: '+372 0000 0000',
   canonicalUrl: 'https://raimruudus.ee/',
   openingInfo: {
     title: 'Avatud hooajaliselt ja sündmuste ajal',
-    exhibition: 'Näitus "Meri kannab" on avatud baari lahtioleku aegadel.',
+    exhibition: 'Näitus "Meri tõi" on avatud baari lahtioleku aegadel.',
     appointment: 'Vajadusel saab külastuse telefoni teel kokku leppida.',
   },
   travel: {

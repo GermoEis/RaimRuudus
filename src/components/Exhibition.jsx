@@ -9,8 +9,8 @@ const exhibitionItems = [
 function Exhibition() {
   return (
     <Section
-      id="meri-kannab"
-      eyebrow="Meri kannab"
+      id="meri-toi"
+      eyebrow="Meri tõi"
       title="Väike näitus mere toodud lugudest"
       lead="Naissaare rannikult ja merest leitud esemed saavad koha väikeses näituses, kus iga leid räägib oma teekonnast."
       tone="sea"
@@ -18,8 +18,8 @@ function Exhibition() {
       <div className="exhibition-layout">
         <article className="exhibition-card">
           <p>
-            "Meri kannab" koondab esemeid, mille meri on Naissaarele toonud või
-            mille rannalt on leitud. Näitus on väike ja ligipääsetav lisa lokaali
+            "Meri tõi" koondab esemeid, mille meri on Naissaarele toonud või
+            mille rannalt on leitud. Näitus on väike ja ligipääsetav lisa baari
             külastusele.
           </p>
           <div className="ticket-box">
@@ -30,7 +30,7 @@ function Exhibition() {
             Leppige külastus kokku
           </a>
         </article>
-        <div className="exhibition-gallery" aria-label="Näitus Meri kannab galerii">
+        <div className="exhibition-gallery" aria-label="Näitus Meri tõi galerii">
           {exhibitionItems.map((item) => (
             <div className="exhibition-placeholder" key={item}>
               <span>{item}</span>

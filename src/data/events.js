@@ -31,7 +31,7 @@ export const upcomingEvents = [
     type: 'Joogid',
   },
   {
-    title: 'Meri kannab eriõhtu',
+    title: 'Meri tõi eriõhtu',
     date: '9. august 2026',
     machineDate: '2026-08-09',
     time: '18:00',

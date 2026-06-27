@@ -15,7 +15,7 @@ export const galleryItems = [
     image: '',
   },
   {
-    title: 'Meri kannab',
+    title: 'Meri tõi',
     description: 'Mere toodud leiud annavad lokaali külastusele väikese loo juurde.',
     image: '',
   },

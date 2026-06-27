@@ -1,6 +1,6 @@
 # Räim Ruudus koduleht
 
-React + Vite projekt Naissaarel asuvale looduslokaalile Räim Ruudus.
+React + Vite projekt Naissaarel asuvale väikesele baarile suure mere ääres Räim Ruudus.
 
 ## Kõige lihtsam käivitamine Windowsis
 
