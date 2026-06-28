@@ -119,8 +119,8 @@ export function PosterDesign({ content = defaultContent }) {
           <div>
             <h2>Registreeri või kirjuta</h2>
             <p>
-              Vormid kasutavad sama valideerimist, kinnitusteadet, Netlify Forms
-              valmisolekut ja kohalikku varulahendust.
+              Vormid kasutavad sama valideerimist ja avavad vaikimisi e-kirja.
+              Formspree endpointi lisamisel saadetakse kiri otse vormiteenuse kaudu.
             </p>
           </div>
           <QuizRegistrationForm quiz={nextQuiz} />
@@ -132,7 +132,7 @@ export function PosterDesign({ content = defaultContent }) {
 }
 
 export function IslandMapDesign({ content = defaultContent }) {
-  const { siteConfig, nextQuiz, upcomingEvents, drinkCategories, faqItems } = content;
+  const { siteConfig, nextQuiz, upcomingEvents, faqItems } = content;
 
   return (
     <div className="map-design">
@@ -158,6 +158,11 @@ export function IslandMapDesign({ content = defaultContent }) {
               Tule laevaga, võta aeg maha, vali midagi baarist, vaata näitust ja pane
               meeskond viktoriiniks kirja.
             </p>
+            <div className="map-hero-actions" aria-label="Peamised tegevused">
+              <a className="button button-primary" href="#map-bar">Vaata menüüd</a>
+              <a className="button button-secondary" href="#map-route">Kuidas tulla</a>
+              <a className="button button-secondary" href="#map-events">Registreeri viktoriinile</a>
+            </div>
           </div>
         </section>
 
@@ -166,7 +171,7 @@ export function IslandMapDesign({ content = defaultContent }) {
             <span>01</span>
             <h2>Laev Naissaarele</h2>
             <p>{siteConfig.travel.text}</p>
-            <a href={siteConfig.travel.url} target="_blank" rel="noreferrer">
+            <a href={siteConfig.travel.url} target="_blank" rel="noreferrer" aria-label="Vaata Naissaare laeva infot Nicesaare lehel">
               Vaata laeva infot
             </a>
           </article>
@@ -188,11 +193,12 @@ export function IslandMapDesign({ content = defaultContent }) {
           <div className="map-heading">
             <span>Baar</span>
             <h2>Menüü ja hinnakiri</h2>
-            <a className="map-menu-pdf" href={menuAssets.pdf} target="_blank" rel="noreferrer">
+            <a className="map-menu-pdf" href={menuAssets.pdf} target="_blank" rel="noreferrer" aria-label="Ava Räim Ruudus täismenüü PDFina">
               Ava täismenüü PDF
             </a>
           </div>
-          <MenuPreview assets={menuAssets} /></section>
+          <MenuPreview assets={menuAssets} />
+        </section>
 
         <section className="map-events" id="map-events">
           <div className="map-heading">
@@ -204,18 +210,22 @@ export function IslandMapDesign({ content = defaultContent }) {
             <div>
               {upcomingEvents.map((event) => (
                 <article key={`${event.date}-${event.title}`}>
-                  <time>{event.date}</time>
-                  <h3>{event.title}</h3>
-                  <p>
-                    {event.time} · {event.description}
-                  </p>
+                  <time dateTime={event.machineDate}>{event.date}</time>
+                  <div className="map-event-content">
+                    <span>{event.type}</span>
+                    <h3>{event.title}</h3>
+                    <p>
+                      {event.time} · {event.description}
+                    </p>
+                    <a href={event.href}>{event.action}</a>
+                  </div>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="map-practical">
+        <section className="map-practical" aria-label="Praktiline info enne külastust">
           {faqItems.map((item) => (
             <details key={item.question}>
               <summary>{item.question}</summary>
@@ -229,12 +239,41 @@ export function IslandMapDesign({ content = defaultContent }) {
             <span>Kontakt</span>
             <h2>Küsi lahtioleku või külastuse kohta.</h2>
           </div>
-          <ContactForm />
+          <div className="map-contact-layout">
+            <ContactForm />
+            <aside className="map-contact-panel" aria-label="Räim Ruudus kontakt ja tulemise info">
+              <div>
+                <span>Asukoht</span>
+                <strong>Naissaar, Eesti</strong>
+                <p>Väike baar suure mere ääres. Tule laevaga ja arvesta hooajalise graafikuga.</p>
+              </div>
+              <div>
+                <span>Kontakt</span>
+                <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+                <p>{siteConfig.phone}</p>
+              </div>
+              <div>
+                <span>Hea teada</span>
+                <p>Kaardimakse olemas. Lapsed ja koerad on oodatud. Näitus "Meri tõi" on tasuta.</p>
+              </div>
+              <div className="map-contact-links">
+                <a href={siteConfig.social.facebook} target="_blank" rel="noreferrer" aria-label="Räim Ruudus Facebook">
+                  Facebook
+                </a>
+                <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer" aria-label="Räim Ruudus Instagram">
+                  Instagram
+                </a>
+                <a href={siteConfig.travel.url} target="_blank" rel="noreferrer" aria-label="Naissaare laeva info">
+                  Laeva info
+                </a>
+              </div>
+            </aside>
+          </div>
           <footer>
-            <a href={siteConfig.social.facebook} target="_blank" rel="noreferrer">
+            <a href={siteConfig.social.facebook} target="_blank" rel="noreferrer" aria-label="Räim Ruudus Facebook">
               Facebook
             </a>
-            <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer">
+            <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer" aria-label="Räim Ruudus Instagram">
               Instagram
             </a>
             <span>Naissaar</span>

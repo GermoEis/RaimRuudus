@@ -436,7 +436,7 @@ function AdminPanel() {
           </div>
         </div>
         <nav aria-label="Admin lingid">
-          <a href="/">Vaata lehte</a>
+          <a href={import.meta.env.BASE_URL || '/'}>Vaata lehte</a>
           <button type="button" onClick={handleLogout}>
             Logi välja
           </button>

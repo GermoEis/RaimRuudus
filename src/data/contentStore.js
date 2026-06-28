@@ -19,6 +19,22 @@ function canUseStorage() {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
 }
 
+function containsCorruptedText(value) {
+  if (typeof value === 'string') {
+    return /R\?|men\?\?|s\?nd|n\?itus|v\?ike|\?\?res|protot\?\?p/.test(value);
+  }
+
+  if (Array.isArray(value)) {
+    return value.some(containsCorruptedText);
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.values(value).some(containsCorruptedText);
+  }
+
+  return false;
+}
+
 export function mergeContent(savedContent = {}) {
   return {
     ...defaultContent,
@@ -51,7 +67,15 @@ export function loadEditableContent() {
 
   try {
     const saved = window.localStorage.getItem(contentStorageKey);
-    return saved ? mergeContent(JSON.parse(saved)) : defaultContent;
+    if (!saved) return defaultContent;
+
+    const parsed = JSON.parse(saved);
+    if (containsCorruptedText(parsed)) {
+      window.localStorage.removeItem(contentStorageKey);
+      return defaultContent;
+    }
+
+    return mergeContent(parsed);
   } catch {
     return defaultContent;
   }

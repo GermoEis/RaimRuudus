@@ -269,9 +269,11 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const design = params.get('design');
   const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+  const routePath = basePath && path.startsWith(basePath) ? path.slice(basePath.length) || '/' : path;
   const content = loadEditableContent();
 
-  if (path === '/admin') {
+  if (routePath === '/admin') {
     return <AdminPanel />;
   }
 

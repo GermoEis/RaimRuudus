@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-
-Sitemap: https://raimruudus.ee/sitemap.xml
+Sitemap: https://germoeis.github.io/RaimRuudus/sitemap.xml

@@ -8,7 +8,7 @@ function MenuPreview({ assets = defaultMenuAssets, compact = false }) {
           <p className="eyebrow">Menüü / hinnakiri</p>
           <h3>Vaata menüüd kohe siin lehel</h3>
         </div>
-        <a className="button button-secondary" href={assets.pdf} target="_blank" rel="noreferrer">
+        <a className="button button-secondary" href={assets.pdf} target="_blank" rel="noreferrer" aria-label="Ava Räim Ruudus menüü PDF uues aknas">
           Ava PDFina
         </a>
       </div>

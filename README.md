@@ -144,52 +144,31 @@ Praegu on menüü kujundatud baaritahvli stiilis. Kui soovid hiljem iga joogi er
 
 ## Vormide praegune lahendus
 
-Projektis ei ole backendit. Vormide saatmine on lahendatud failis `src/services/formSubmit.js` kahe kihina:
+Projekt on seadistatud GitHub Pagesi jaoks, seega Netlify Forms ei ole aktiivne vormilahendus.
+Vormide konfiguratsioon asub failis `src/data/siteConfig.js`:
 
-1. andmed salvestatakse brauseri `localStorage` mock-andmetesse;
-2. avatakse `mailto:` link, mis koostab e-kirja haldaja aadressile.
+```js
+forms: {
+  provider: 'mailto',
+  formspreeEndpoint: '',
+  debugLocalStorage: false,
+}
+```
 
-Viktoriini vormi eduteade on `Registreering saadetud!`.
+Toetatud suunad:
 
-Mock-andmete võtmed brauseris:
+- `provider: 'mailto'` avab külastaja e-posti kliendi ja koostab kirja haldaja aadressile;
+- `provider: 'formspree'` saadab vormi Formspree endpointi, kui `formspreeEndpoint` on täidetud;
+- kui Formspree endpoint puudub, kasutatakse fallbackina `mailto` lahendust.
 
-- `raimRuudusQuizRegistrations`
-- `raimRuudusContactMessages`
+Tootmisversioon ei salvesta päris kasutajate sõnumeid `localStorage`-isse. Arenduses saab debug-salvestuse sisse lülitada ainult siis, kui `debugLocalStorage: true`.
 
-## Kuidas vorm päriselt e-kirja saatma panna
+Formspree kasutamiseks:
 
-Kõige lihtsamad variandid:
-
-- Netlify Forms, kui sait majutatakse Netlifys;
-- Formspree või Basin, kui soovid kiiret vormiteenust;
-- EmailJS, kui soovid saata frontendist ilma oma serverita;
-- Vercel/Netlify serverless endpoint koos teenusega Resend, SendGrid või Mailgun.
-
-Praktiline serverless suund:
-
-1. loo endpoint näiteks `/api/contact`;
-2. valideeri samad väljad serveris uuesti;
-3. saada e-kiri Resendi või SendGridi kaudu;
-4. asenda `src/services/formSubmit.js` sees `openMailClient` päris `fetch('/api/contact')` päringuga;
-5. jäta `localStorage` arenduse ajaks varukoopiaks või eemalda see tootmises.
-
-Formspree kasutamisel:
-
-1. loo Formspree vorm ja kopeeri endpoint;
-2. saada `src/services/formSubmit.js` failist `fetch('https://formspree.io/f/...')` päring;
-3. eemalda `window.location.href = mailtoUrl`, kui automaatne saatmine on töös.
-
-Netlify Forms kasutamisel:
-
-1. lisa vormidele Netlify nõutud atribuudid;
-2. ehita ja majuta sait Netlifys;
-3. kontrolli Netlify Forms paneelist, et registreeringud jõuavad kohale.
-
-Resendi kasutamisel:
-
-1. lisa serverless endpoint, näiteks `/api/contact`;
-2. hoia Resendi API võti ainult serveri keskkonnamuutujas;
-3. kutsu endpointi `src/services/formSubmit.js` failist `fetch` päringuga.
+1. loo Formspree vorm;
+2. kopeeri endpoint `formspreeEndpoint` väärtuseks;
+3. muuda `provider: 'formspree'`;
+4. testi vormi production buildis.
 
 ## Sisu ja piltide vahetamine
 

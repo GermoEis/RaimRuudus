@@ -51,25 +51,16 @@ function QuizRegistrationForm({ quiz }) {
 
     setIsSubmitting(true);
     try {
-      await submitQuizRegistration(values, quiz);
+      const result = await submitQuizRegistration(values, quiz);
       setValues(initialValues);
-      setStatus('Aitäh! Registreering on saadetud ja vorm on puhastatud.');
+      setStatus(result.message);
     } finally {
       setIsSubmitting(false);
     }
   }
 
   return (
-    <form
-      className="form-card"
-      name="quiz-registration"
-      method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      <input type="hidden" name="form-name" value="quiz-registration" />
+    <form className="form-card" name="quiz-registration" method="POST" onSubmit={handleSubmit} noValidate>
       <label className="honeypot">
         Ära täida seda välja
         <input name="botField" value={values.botField} onChange={handleChange} tabIndex="-1" />
@@ -79,23 +70,23 @@ function QuizRegistrationForm({ quiz }) {
       <div className="form-grid">
         <label>
           Meeskonna nimi
-          <input name="teamName" autoComplete="organization" value={values.teamName} onChange={handleChange} />
-          {errors.teamName && <span className="field-error">{errors.teamName}</span>}
+          <input name="teamName" autoComplete="organization" value={values.teamName} onChange={handleChange} aria-invalid={Boolean(errors.teamName)} />
+          {errors.teamName && <span className="field-error" role="alert">{errors.teamName}</span>}
         </label>
         <label>
           Kontaktisiku nimi
-          <input name="contactName" autoComplete="name" value={values.contactName} onChange={handleChange} />
-          {errors.contactName && <span className="field-error">{errors.contactName}</span>}
+          <input name="contactName" autoComplete="name" value={values.contactName} onChange={handleChange} aria-invalid={Boolean(errors.contactName)} />
+          {errors.contactName && <span className="field-error" role="alert">{errors.contactName}</span>}
         </label>
         <label>
           E-post
-          <input name="email" type="email" autoComplete="email" value={values.email} onChange={handleChange} />
-          {errors.email && <span className="field-error">{errors.email}</span>}
+          <input name="email" type="email" autoComplete="email" value={values.email} onChange={handleChange} aria-invalid={Boolean(errors.email)} />
+          {errors.email && <span className="field-error" role="alert">{errors.email}</span>}
         </label>
         <label>
           Telefon
-          <input name="phone" type="tel" autoComplete="tel" value={values.phone} onChange={handleChange} />
-          {errors.phone && <span className="field-error">{errors.phone}</span>}
+          <input name="phone" type="tel" autoComplete="tel" value={values.phone} onChange={handleChange} aria-invalid={Boolean(errors.phone)} />
+          {errors.phone && <span className="field-error" role="alert">{errors.phone}</span>}
         </label>
         <label>
           Osalejate arv
@@ -107,8 +98,9 @@ function QuizRegistrationForm({ quiz }) {
             max="6"
             value={values.participants}
             onChange={handleChange}
+            aria-invalid={Boolean(errors.participants)}
           />
-          {errors.participants && <span className="field-error">{errors.participants}</span>}
+          {errors.participants && <span className="field-error" role="alert">{errors.participants}</span>}
         </label>
         <label className="full-span">
           Lisainfo / kommentaar
@@ -118,10 +110,9 @@ function QuizRegistrationForm({ quiz }) {
       <button className="button button-primary" type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Saadan...' : 'Saada registreering'}
       </button>
-      {status && <p className="success-message">{status}</p>}
+      {status && <p className="success-message" role="status">{status}</p>}
       <p className="form-note">
-        Vorm on valmis Netlify Forms teenusega päriselt saatmiseks. Kohalikus arenduses
-        avaneb vajadusel e-kirja varulahendus.
+        Kui vormiteenus pole seadistatud, avame e-kirja sinu meiliprogrammis. Formspree endpointi lisamisel saadetakse vorm otse.
       </p>
     </form>
   );

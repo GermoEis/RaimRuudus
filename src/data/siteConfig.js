@@ -3,10 +3,10 @@ export const siteConfig = {
   tagline: 'Väike baar suure mere ääres',
   contactEmail: 'info@raimruudus.ee',
   phone: '+372 0000 0000',
-  canonicalUrl: 'https://raimruudus.ee/',
+  canonicalUrl: 'https://germoeis.github.io/RaimRuudus/',
   openingInfo: {
     title: 'Avatud hooajaliselt ja sündmuste ajal',
-    exhibition: 'Näitus "Meri tõi" on avatud baari lahtioleku aegadel.',
+    exhibition: 'Näitus "Meri tõi" on avatud baari lahtioleku aegadel ja on tasuta.',
     appointment: 'Vajadusel saab külastuse telefoni teel kokku leppida.',
   },
   travel: {
@@ -15,7 +15,9 @@ export const siteConfig = {
     url: 'https://nicesaar.eu/',
   },
   forms: {
-    provider: 'Netlify Forms',
+    provider: 'formspree',
+    formspreeEndpoint: 'https://formspree.io/f/mzdlgjbq',
+    debugLocalStorage: false,
     quizFormName: 'quiz-registration',
     contactFormName: 'contact',
   },

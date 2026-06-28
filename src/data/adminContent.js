@@ -7,7 +7,7 @@ export const editableContentAreas = [
 ];
 
 export const adminPreparationNotes = {
-  currentSource: 'Content is already grouped into data modules under src/data.',
+  currentSource: 'Avaliku lehe sisu on koondatud src/data failidesse.',
   futureAdmin:
-    'A later admin panel can replace these modules with API/CMS data without rewriting the public components.',
+    "Praegune /admin on lokaalne prototüüp, mis salvestab muudatused brauseri localStorage'isse. Avalikus veebis tuleb enne kasutamist lisada päris autentimine ja serveripoolne salvestus või CMS.",
 };

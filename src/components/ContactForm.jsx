@@ -44,25 +44,16 @@ function ContactForm() {
 
     setIsSubmitting(true);
     try {
-      await submitContactMessage(values);
+      const result = await submitContactMessage(values);
       setValues(initialValues);
-      setStatus('Aitäh! Sõnum on saadetud ja vorm on puhastatud.');
+      setStatus(result.message);
     } finally {
       setIsSubmitting(false);
     }
   }
 
   return (
-    <form
-      className="form-card"
-      name="contact"
-      method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      <input type="hidden" name="form-name" value="contact" />
+    <form className="form-card" name="contact" method="POST" onSubmit={handleSubmit} noValidate>
       <label className="honeypot">
         Ära täida seda välja
         <input name="botField" value={values.botField} onChange={handleChange} tabIndex="-1" />
@@ -70,23 +61,23 @@ function ContactForm() {
       <h3>Kirjuta meile</h3>
       <label>
         Nimi
-        <input name="name" autoComplete="name" value={values.name} onChange={handleChange} />
-        {errors.name && <span className="field-error">{errors.name}</span>}
+        <input name="name" autoComplete="name" value={values.name} onChange={handleChange} aria-invalid={Boolean(errors.name)} />
+        {errors.name && <span className="field-error" role="alert">{errors.name}</span>}
       </label>
       <label>
         E-post
-        <input name="email" type="email" autoComplete="email" value={values.email} onChange={handleChange} />
-        {errors.email && <span className="field-error">{errors.email}</span>}
+        <input name="email" type="email" autoComplete="email" value={values.email} onChange={handleChange} aria-invalid={Boolean(errors.email)} />
+        {errors.email && <span className="field-error" role="alert">{errors.email}</span>}
       </label>
       <label>
         Sõnum
-        <textarea name="message" rows="5" value={values.message} onChange={handleChange} />
-        {errors.message && <span className="field-error">{errors.message}</span>}
+        <textarea name="message" rows="5" value={values.message} onChange={handleChange} aria-invalid={Boolean(errors.message)} />
+        {errors.message && <span className="field-error" role="alert">{errors.message}</span>}
       </label>
       <button className="button button-primary" type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Saadan...' : 'Saada sõnum'}
       </button>
-      {status && <p className="success-message">{status}</p>}
+      {status && <p className="success-message" role="status">{status}</p>}
     </form>
   );
 }

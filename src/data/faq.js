@@ -1,27 +1,26 @@
 export const faqItems = [
   {
     question: 'Kas kaardiga saab maksta?',
-    answer: 'Jah.',
+    answer: 'Jah, kaardimakse on olemas. Väikesaarele tulles tasub igaks juhuks veidi sularaha kaasa võtta.',
   },
   {
     question: 'Kas lapsed on oodatud?',
-    answer: 'Jah.',
+    answer: 'Jah, lapsed on oodatud. Näitus "Meri tõi" on külastajatele tasuta.',
   },
   {
     question: 'Kas koeraga võib tulla?',
-    answer: 'Jah.',
+    answer: 'Jah, rahulikud neljajalgsed kaaslased on oodatud. Palume arvestada teiste külaliste ja saarekeskkonnaga.',
   },
   {
     question: 'Kas grupp peab ette teatama?',
-    answer: 'Ei pea.',
+    answer: 'Väiksem seltskond võib tulla ette teatamata. Suurema grupi või erisoovi korral kirjuta enne, et oskaksime paremini valmis olla.',
   },
   {
     question: 'Millal näitus avatud on?',
-    answer:
-      'Baari lahtioleku aegadel. Vajadusel saab külastuse telefoni teel kokku leppida.',
+    answer: 'Näitus "Meri tõi" on avatud baari lahtioleku aegadel. Vajadusel saab külastuse telefoni või e-kirja teel kokku leppida.',
   },
   {
     question: 'Kuidas Naissaarele saab?',
-    answer: 'Naissaarele saab laevaga. Laeva info ja piletid: nicesaar.eu.',
+    answer: 'Naissaarele saab laevaga. Kontrolli väljumisi, pileteid ja ilma enne tulekut Nicesaare lehelt.',
   },
 ];
