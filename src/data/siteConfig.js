@@ -1,8 +1,9 @@
 export const siteConfig = {
   name: 'Räim Ruudus',
   tagline: 'Väike baar suure mere ääres',
-  contactEmail: 'info@raimruudus.ee',
-  phone: '+372 0000 0000',
+  contactEmail: 'raimruudus@gmail.com',
+  phone: '+3725278649',
+  altPhone: '+37256306354',
   canonicalUrl: 'https://germoeis.github.io/RaimRuudus/',
   openingInfo: {
     title: 'Avatud hooajaliselt ja sündmuste ajal',
@@ -18,7 +19,6 @@ export const siteConfig = {
     provider: 'formspree',
     formspreeEndpoint: 'https://formspree.io/f/mzdlgjbq',
     debugLocalStorage: false,
-    quizFormName: 'quiz-registration',
     contactFormName: 'contact',
   },
   social: {

@@ -10,10 +10,10 @@ function Hero() {
         <p className="hero-subtitle">Väike baar suure mere ääres</p>
         <p className="hero-text">
           Väike saarebaar, kus saab võtta aja maha, nautida külma jooki, meretuult,
-          viktoriiniõhtuid ja näitust "Meri tõi".
+          hooajalist baari, näitust "Meri tõi" ning võimalust korraldada oma sündmus Naissaarel.
         </p>
         <div className="hero-actions">
-          <a className="button button-primary" href="#viktoriinid">
+          <a className="button button-primary" href="#uritused">
             Vaata sündmusi
           </a>
           <a className="button button-secondary" href="#kuidas-tulla">

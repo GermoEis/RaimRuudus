@@ -26,7 +26,7 @@ export const galleryItems = [
   },
   {
     title: 'Saare sündmused',
-    description: 'Viktoriinid, eriõhtud ja hooajalised kogunemised.',
+    description: 'Sünnipäevad, eraüritused ja hooajalised kogunemised.',
     image: '',
   },
 ];

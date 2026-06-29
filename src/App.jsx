@@ -1,31 +1,32 @@
+import { useEffect, useMemo, useState } from 'react';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import Section from './components/Section.jsx';
 import DrinksMenu from './components/DrinksMenu.jsx';
 import Exhibition from './components/Exhibition.jsx';
-import QuizRegistrationForm from './components/QuizRegistrationForm.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import AdminPanel from './components/AdminPanel.jsx';
 import { IslandMapDesign, PosterDesign } from './components/AlternateDesigns.jsx';
 import Footer from './components/Footer.jsx';
 import { adminPreparationNotes, editableContentAreas } from './data/adminContent.js';
 import { loadEditableContent } from './data/contentStore.js';
+import { localizeContent, normalizeLanguage } from './data/language.js';
 
 const quickLinks = [
   { title: 'Laevaga kohale', text: 'Naissaarele saab laevaga. Vaata ajad enne tulekut üle.', href: '#kuidas-tulla' },
   { title: 'Joogid', text: 'Õlled, siidrid, kokteilid, kangemad ja alkoholivabad joogid.', href: '#baar' },
-  { title: 'Sündmused', text: 'Viktoriinid, kokteiliõhtud ja Meri tõi eriõhtu.', href: '#viktoriinid' },
+  { title: 'Üritused', text: 'Sünnipäevad, suvepäevad, firmaüritused ja sõprade kokkutulekud.', href: '#uritused' },
   { title: 'Kontakt', text: 'Küsi lahtioleku, grupi või külastuse kohta.', href: '#kontakt' },
 ];
 
-function MainDesign({ content }) {
-  const { siteConfig, galleryItems, upcomingEvents, nextQuiz, faqItems, drinkCategories } = content;
+function MainDesign({ content, lang = 'et', onLanguageChange }) {
+  const { siteConfig, galleryItems, faqItems, drinkCategories } = content;
 
   return (
     <>
-      <Header siteConfig={siteConfig} />
+      <Header siteConfig={siteConfig} lang={lang} onLanguageChange={onLanguageChange} />
       <main>
-        <Hero />
+        <Hero lang={lang} />
 
         <Section
           id="avaleht"
@@ -129,64 +130,51 @@ function MainDesign({ content }) {
           lead="Baaritahvli stiilis menüü teeb kategooriad kiiresti loetavaks nii telefonis kui ka arvutis."
           tone="sand"
         >
-          <DrinksMenu categories={drinkCategories} />
+          <DrinksMenu categories={drinkCategories} lang={lang} />
         </Section>
 
-        <Exhibition />
+        <Exhibition lang={lang} />
 
-        <Section
-          id="viktoriinid"
-          eyebrow="Sündmused"
-          title="Sündmuste kalender"
-          lead="Viktoriinid, kokteiliõhtud ja Meri tõi eriõhtud annavad põhjuse Naissaarele tulla ka siis, kui päevaplaan alles kujuneb."
-        >
-          <div className="events-calendar">
-            {upcomingEvents.map((event, index) => (
-              <article className="calendar-card" key={`${event.machineDate}-${event.title}-${index}`}>
-                <div className="calendar-date">
-                  <time dateTime={event.machineDate}>{event.date}</time>
-                  <span>{event.time}</span>
-                </div>
-                <div className="calendar-content">
-                  <p className="event-label">{event.type}</p>
-                  <h3>{event.title}</h3>
-                  <p>{event.description}</p>
-                  <a className="button button-secondary" href={event.href}>
-                    {event.action}
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+      <Section
+        id="uritused"
+        eyebrow="Üritused ja seltskonnad"
+        title="Korralda oma sündmus Naissaarel"
+        lead="Otsid erilist kohta sünnipäevaks, suvepäevaks, firmaürituseks või sõprade kokkutulekuks? Räim Ruudus pakub hubast saareõhkkonda, baari, grilli kasutamise võimalust ja näitust “Meri tõi”."
+      >
+        <div className="private-events-layout">
+          <article className="event-card">
+            <span className="event-label">Eraüritused ja grupid</span>
+            <h3>Tule oma seltskonnaga Räim Ruudusesse</h3>
+            <p>
+              Meie juures saab korraldada väiksemaid sündmusi, pidusid ja kokkusaamisi.
+              Kirjuta meile, räägi oma plaanist ja leiame koos sobiva lahenduse.
+            </p>
 
-          <div className="quiz-layout">
-            <article className="event-card">
-              <span className="event-label">Järgmine registreerimisega sündmus</span>
-              <h3>{nextQuiz.title}</h3>
-              <dl>
-                <div>
-                  <dt>Kuupäev</dt>
-                  <dd>{nextQuiz.date}</dd>
-                </div>
-                <div>
-                  <dt>Kellaaeg</dt>
-                  <dd>{nextQuiz.time}</dd>
-                </div>
-                <div>
-                  <dt>Asukoht</dt>
-                  <dd>{nextQuiz.location}</dd>
-                </div>
-                <div>
-                  <dt>Meeskond</dt>
-                  <dd>{nextQuiz.teamSize}</dd>
-                </div>
-              </dl>
-              <p>{nextQuiz.description}</p>
-            </article>
-            <QuizRegistrationForm quiz={nextQuiz} />
-          </div>
-        </Section>
+            <div className="event-types">
+              <span>Sünnipäevad</span>
+              <span>Suvepäevad</span>
+              <span>Firmaüritused</span>
+              <span>Sõprade kokkutulekud</span>
+              <span>Grilliõhtud</span>
+              <span>Väiksemad eraüritused</span>
+            </div>
 
+            <a className="button button-primary" href="#kontakt">
+              Küsi pakkumist
+            </a>
+          </article>
+
+          <article className="event-card">
+            <span className="event-label">Naissaare atmosfäär</span>
+            <h3>Meri, baar ja rahulik saareolemine</h3>
+            <p>
+              Sobib hästi päevaks, kus tahad olla mandri mürast eemal — võtta aja maha,
+              nautida jooke, grillida, vaadata näitust või lihtsalt oma inimestega koos olla.
+            </p>
+          </article>
+        </div>
+      </Section>
+      
         <Section
           id="praktiline-info"
           eyebrow="Praktiline info"
@@ -212,7 +200,7 @@ function MainDesign({ content }) {
           tone="green"
         >
           <div className="contact-layout">
-            <ContactForm />
+            <ContactForm lang={lang} />
             <aside className="contact-panel" aria-label="Kontaktinfo">
               <div>
                 <h3>Asukoht</h3>
@@ -260,32 +248,79 @@ function MainDesign({ content }) {
           </ul>
         </section>
       </main>
-      <Footer siteConfig={siteConfig} />
+      <Footer siteConfig={siteConfig} lang={lang} />
     </>
   );
 }
 
+const languageStorageKey = 'raimRuudusLanguage';
+
+function getInitialLanguage() {
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = normalizeLanguage(params.get('lang'));
+  if (params.get('lang')) return fromUrl;
+
+  try {
+    const saved = window.localStorage.getItem(languageStorageKey);
+    if (saved) return normalizeLanguage(saved);
+  } catch {
+    // Ignore storage errors and fall back to Estonian.
+  }
+
+  return 'et';
+}
+
 function App() {
+  const [lang, setLang] = useState(getInitialLanguage);
   const params = new URLSearchParams(window.location.search);
   const design = params.get('design');
   const path = window.location.pathname.replace(/\/$/, '') || '/';
   const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
   const routePath = basePath && path.startsWith(basePath) ? path.slice(basePath.length) || '/' : path;
-  const content = loadEditableContent();
+  const baseContent = loadEditableContent();
+  const content = useMemo(() => localizeContent(baseContent, lang), [baseContent, lang]);
+
+  function handleLanguageChange(nextLanguage) {
+    setLang(normalizeLanguage(nextLanguage));
+  }
+
+  useEffect(() => {
+    const language = normalizeLanguage(lang);
+    document.documentElement.lang = language === 'en' ? 'en' : 'et';
+    document.title = language === 'en'
+      ? 'R\u00e4im Ruudus | Naissaar bar, drinks, exhibition and private events'
+      : 'R\u00e4im Ruudus | Naissaare baar, joogid, n\u00e4itus ja s\u00fcndmused';
+
+    const description = document.querySelector('meta[name="description"]');
+    if (description) {
+      description.setAttribute(
+        'content',
+        language === 'en'
+          ? 'R\u00e4im Ruudus is a small seaside bar on Naissaar with drinks, a menu, the Meri t\u00f5i exhibition and private events.'
+          : 'R\u00e4im Ruudus on Naissaare v\u00e4ike baar suure mere \u00e4\u00e4res: joogid, men\u00fc\u00fc, n\u00e4itus Meri t\u00f5i ja era\u00fcritused.',
+      );
+    }
+
+    try {
+      window.localStorage.setItem(languageStorageKey, language);
+    } catch {
+      // Language persistence is optional.
+    }
+  }, [lang]);
 
   if (routePath === '/admin') {
     return <AdminPanel />;
   }
 
   if (design === 'poster') {
-    return <PosterDesign content={content} />;
+    return <PosterDesign content={content} lang={lang} onLanguageChange={handleLanguageChange} />;
   }
 
   if (design === 'classic' || design === 'tavaline' || design === 'praegune') {
-    return <MainDesign content={content} />;
+    return <MainDesign content={content} lang={lang} onLanguageChange={handleLanguageChange} />;
   }
 
-  return <IslandMapDesign content={content} />;
+  return <IslandMapDesign content={content} lang={lang} onLanguageChange={handleLanguageChange} />;
 }
 
 export default App;
