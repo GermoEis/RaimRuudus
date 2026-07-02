@@ -12,7 +12,7 @@ function Footer({ siteConfig = defaultSiteConfig, contactHref = '#kontakt', lang
   return (
     <footer className="site-footer">
       <div className="site-footer-brand">
-        <img src={logo} alt="R\u00e4im Ruudus" />
+        <img src={logo} alt={siteConfig.name} />
         <div>
           <strong>{siteConfig.name}</strong>
           <p>{siteConfig.tagline}</p>
@@ -27,7 +27,7 @@ function Footer({ siteConfig = defaultSiteConfig, contactHref = '#kontakt', lang
 
       <div className="site-footer-meta">
         <span>{activeCopy.island}</span>
-        <span>\u00a9 {new Date().getFullYear()} R\u00e4im Ruudus. {activeCopy.rights}</span>
+        <span>&copy; {new Date().getFullYear()} {siteConfig.name}. {activeCopy.rights}</span>
       </div>
     </footer>
   );

@@ -1,19 +1,18 @@
-﻿const base = import.meta.env.BASE_URL;
+const etMenuPdf = new URL('../../raim_ruudus_menüü.pdf', import.meta.url).href;
+const enMenuPdf = new URL('../../raim_ruudus_menu_en.pdf', import.meta.url).href;
+const etMenuPage1Pdf = new URL('../../raim_ruudus_menu_et_page_1.pdf', import.meta.url).href;
+const etMenuPage2Pdf = new URL('../../raim_ruudus_menu_et_page_2.pdf', import.meta.url).href;
+const enMenuPage1Pdf = new URL('../../raim_ruudus_menu_en_page_1.pdf', import.meta.url).href;
+const enMenuPage2Pdf = new URL('../../raim_ruudus_menu_en_page_2.pdf', import.meta.url).href;
 
 const menuAssetSets = {
   et: {
-    pdf: `${base}raim-ruudus-menu.pdf`,
-    pages: [
-      { src: `${base}raim-ruudus-menu-page-1.png`, alt: 'R\u00e4im Ruudus men\u00fc\u00fc ja hinnakiri, leht 1' },
-      { src: `${base}raim-ruudus-menu-page-2.png`, alt: 'R\u00e4im Ruudus men\u00fc\u00fc ja hinnakiri, leht 2' },
-    ],
+    pdf: etMenuPdf,
+    pages: [etMenuPage1Pdf, etMenuPage2Pdf],
   },
   en: {
-    pdf: `${base}raim-ruudus-menu-en.pdf`,
-    pages: [
-      { src: `${base}raim-ruudus-menu-en-page-1.png`, alt: 'R\u00e4im Ruudus English menu and price list, page 1' },
-      { src: `${base}raim-ruudus-menu-en-page-2.png`, alt: 'R\u00e4im Ruudus English menu and price list, page 2' },
-    ],
+    pdf: enMenuPdf,
+    pages: [enMenuPage1Pdf, enMenuPage2Pdf],
   },
 };
 

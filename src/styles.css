@@ -1340,7 +1340,13 @@ textarea {
 
 .map-content {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0;
+  min-width: 0;
+}
+
+.map-content > * {
+  min-width: 0;
 }
 
 .map-hero,
@@ -2022,6 +2028,30 @@ textarea {
   height: auto;
 }
 
+.menu-preview-documents {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+
+.menu-preview-document {
+  aspect-ratio: 1241 / 1754;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.22);
+}
+
+.menu-preview-document iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--paper);
+  pointer-events: none;
+}
+
 .menu-preview-compact {
   margin-top: 0;
 }
@@ -2424,6 +2454,10 @@ textarea {
   gap: clamp(18px, 2.6vw, 34px);
 }
 
+.menu-preview-documents {
+  gap: clamp(18px, 2.6vw, 34px);
+}
+
 .menu-preview-pages a {
   display: block;
   padding: clamp(10px, 1.5vw, 18px);
@@ -2439,6 +2473,18 @@ textarea {
 
 .menu-preview-pages img {
   border-radius: 18px;
+}
+
+.menu-preview-document {
+  border: 1px solid rgba(255, 250, 240, 0.18);
+  border-radius: 28px;
+  background: #f4e7cf;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+}
+
+.menu-preview-document iframe {
+  border-radius: 20px;
+  background: #f4e7cf;
 }
 
 .map-events {
@@ -2667,6 +2713,10 @@ textarea {
   text-align: right;
 }
 
+.site-footer-meta span:last-child {
+  overflow-wrap: anywhere;
+}
+
 .site-footer-meta span:first-child {
   color: var(--premium-sand);
   font-weight: 950;
@@ -2832,7 +2882,8 @@ textarea {
 
   .map-route,
   .map-practical,
-  .menu-preview-pages {
+  .menu-preview-pages,
+  .menu-preview-documents {
     grid-template-columns: 1fr;
   }
 
@@ -3002,6 +3053,16 @@ summary:focus-visible {
   margin: 6px 0 0;
   color: rgba(16, 22, 20, 0.64);
   line-height: 1.65;
+}
+
+.map-contact-details {
+  display: grid;
+  gap: 8px;
+}
+
+.map-contact-details a {
+  width: fit-content;
+  overflow-wrap: anywhere;
 }
 
 .map-contact-links {

@@ -1,21 +1,23 @@
-﻿import { getMenuAssets } from '../data/menu.js';
+import { getMenuAssets } from '../data/menu.js';
 
 const copy = {
   et: {
-    aria: 'R\u00e4im Ruudus men\u00fc\u00fc ja hinnakiri',
-    eyebrow: 'Men\u00fc\u00fc / hinnakiri',
-    title: 'Vaata men\u00fc\u00fcd kohe siin lehel',
+    aria: 'Räim Ruudus menüü ja hinnakiri',
+    eyebrow: 'Menüü / hinnakiri',
+    title: 'Vaata menüüd kohe siin lehel',
     pdfButton: 'Ava PDFina',
-    pdfAria: 'Ava R\u00e4im Ruudus men\u00fc\u00fc PDF uues aknas',
-    pageAria: 'Ava men\u00fc\u00fc PDF, leht',
+    pdfAria: 'Ava Räim Ruudus menüü PDF uues aknas',
+    pdfTitle: 'Räim Ruudus menüü PDF',
+    pageTitle: 'Räim Ruudus menüü PDF, leht',
   },
   en: {
-    aria: 'R\u00e4im Ruudus menu and price list',
+    aria: 'Räim Ruudus menu and price list',
     eyebrow: 'Menu / price list',
     title: 'View the menu directly on this page',
     pdfButton: 'Open PDF',
-    pdfAria: 'Open the R\u00e4im Ruudus menu PDF in a new window',
-    pageAria: 'Open menu PDF, page',
+    pdfAria: 'Open the Räim Ruudus menu PDF in a new window',
+    pdfTitle: 'Räim Ruudus menu PDF',
+    pageTitle: 'Räim Ruudus menu PDF, page',
   },
 };
 
@@ -34,12 +36,22 @@ function MenuPreview({ assets, compact = false, lang = 'et' }) {
           {activeCopy.pdfButton}
         </a>
       </div>
-      <div className="menu-preview-pages">
-        {activeAssets.pages.map((page, index) => (
-          <a href={activeAssets.pdf} target="_blank" rel="noreferrer" key={page.src} aria-label={`${activeCopy.pageAria} ${index + 1}`}>
-            <img src={page.src} alt={page.alt} loading={index === 0 ? 'eager' : 'lazy'} />
-          </a>
-        ))}
+      <div className="menu-preview-documents" aria-label={activeCopy.pdfTitle}>
+        {activeAssets.pages.map((pagePdf, index) => {
+          const page = index + 1;
+
+          return (
+            <div className="menu-preview-document" key={page}>
+              <iframe
+                title={`${activeCopy.pageTitle} ${page}`}
+                src={`${pagePdf}#zoom=page-fit&view=Fit&toolbar=0&navpanes=0&scrollbar=0`}
+                loading="lazy"
+                scrolling="no"
+                tabIndex="-1"
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );

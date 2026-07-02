@@ -259,7 +259,7 @@ export function IslandMapDesign({ content = defaultContent, lang = 'et', onLangu
                 <strong>{copy.locationValue}</strong>
                 <p>{copy.locationText}</p>
               </div>
-              <div>
+              <div className="map-contact-details">
                 <span>{copy.contact}</span>
 
                 <a href={`mailto:${siteConfig.contactEmail}`}>
@@ -291,15 +291,6 @@ export function IslandMapDesign({ content = defaultContent, lang = 'et', onLangu
               </div>
             </aside>
           </div>
-          <footer>
-            <a href={siteConfig.social.facebook} target="_blank" rel="noreferrer" aria-label="Räim Ruudus Facebook">
-              Facebook
-            </a>
-            <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer" aria-label="Räim Ruudus Instagram">
-              Instagram
-            </a>
-            <span>Naissaar</span>
-          </footer>
         </section>
         <Footer siteConfig={siteConfig} contactHref="#map-contact" lang={lang} />
       </main>
